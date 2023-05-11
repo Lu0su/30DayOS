@@ -27,6 +27,11 @@
 		RESB	18				; 先空出18字节
 
 ; 程序主体
+; 标签即为一个唯一的整数.
+; 每个标号对应的数字都是由汇编器根据org的值计算出来的 
+; 0x0010 小端存储的话，低位应该在低址. 如果一个字节一个字节的写入就是0x10 0x00.
+; mov的源数据与目标数据的位数需要相同
+; mov al, byte 0x10; move ax, word 0x1000 吧byte亦或是word去了没有区别.
 
 entry:
 		MOV		AX,0			; 初始化寄存器
@@ -37,7 +42,7 @@ entry:
 
 		MOV		SI,msg
 putloop:
-		MOV		AL,[SI]
+		MOV		AL,[SI]         
 		ADD		SI,1			; 给SI加1
 		CMP		AL,0
 		JE		fin
